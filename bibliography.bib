@@ -9,34 +9,6 @@
 % provided by most web sites that allow you to export citations. The string
 % "clrsAlgorithms" is a citation key, and if you were citing the source in a
 % document you would use \cite{clrsAlgorithms}.
-@book{clrsAlgorithms,
-author = {Cormen, Thomas H. and Leiserson, Charles E. and Rivest, Ronald L. and Stein, Clifford},
-title = {Introduction to Algorithms, Third Edition},
-year = {2009},
-isbn = {0262033844},
-publisher = {The MIT Press},
-edition = {3rd},
-annote  = {This is a popular algorithms textbook which is well-cited. In particular, Part VI on graph algorithms will be of interest. Chapter 26 discusses flow networks and introduces commonly used notation. It formally describes the problem of obtaining a maximum flow and its equivalence to obtaining a minimum cut. The classical method of Ford and Fulkerson's algorithm for finding a maximum flow is described, and it includes several examples. Additional methods for obtaining a maximum flow, including the push-relabel method, are also described. The chapter notes include additional references to specific articles which may be helpful, such as those of historical interest (the article in which an algorithm was originally proposed) as well as state-of-the-art improvements (more recent articles to improve the approach).}
-}
-
-@inproceedings{10.1145/3704637.3734789,
-author = {Hug, Sarah and McKay, Mark},
-title = {Problematizing {AI} Literacy Access - Understanding Student {AI} Literacy from Student Voices},
-year = {2025},
-isbn = {9798400706264},
-publisher = {Association for Computing Machinery},
-address = {New York, NY, USA},
-url = {https://doi.org/10.1145/3704637.3734789},
-doi = {10.1145/3704637.3734789},
-abstract = {Domestic undergraduate computer science students formally learn about machine learning and artificial intelligence in upper level undergraduate computing programs, yet they must navigate the lure of ChatGPT and other generative Artificial Intelligence tools that have been found to be somewhat accurate at completing early coding assignments. As AI tools proliferate, messaging about their use in academic settings are varied, and access to AI literacy is unknown. Through an investigation of interviews with Pell grant eligible college students at open access colleges, we address the following research questions: How do low-income undergraduate interview participants describe their uses of and attitudes regarding generative AI tool use for academic purposes? and What elements of AI digital literacy appear to be accessible to interview participants, based on their descriptive statements?},
-booktitle = {Proceedings of the 2025 Conference on Research on Equitable and Sustained Participation in Engineering, Computing, and Technology},
-pages = {339–342},
-numpages = {4},
-keywords = {AI tool use, Pell-Grant eligible students, digital divide, generative AI literacy, qualitative interview},
-location = {Newark, NJ, USA},
-series = {RESPECT 2025}
-}
-
 @incollection{vidal2022optimization,
   author       = {Rene, Vidal and Zhihui Zhu and Benjamin D. Haeffele},
   title        = {Optimization Landscape of Neural Networks},
@@ -47,7 +19,43 @@ series = {RESPECT 2025}
   pages        = {200--228},
   doi          = {10.1017/9781009025096.005},
   url          = {https://www.cambridge.org/core/books/mathematical-aspects-of-deep-learning/optimization-landscape-of-neural-networks/E8E68EA489DC86BC75013421EBBF824C},
-  note         = {Accessed: 2026-01-29},
+  annote         = {
+    Many tasks in machine learning involve solving a convex optimization
+    problem which significantly facilitates the analysis of properties of the resulting
+    algorithms, such as their optimality, robustness, and generalization. An important
+    challenge in training neural networks occurs when the associated optimization
+    problem is non-convex; this complicates the analysis because global optima can be
+    difficult to characterize and the optimization landscape can also include spurious
+    local minima and saddle points. As a consequence, different algorithms might
+    attract different weights depending on initialization, parameter tuning, etc. Despite
+    this challenge, in practice existing algorithms routinely converge to good solutions,
+    which suggests that the landscape might be simpler than expected, at least for certain
+    classes of networks.
+  },
+}
+
+@article{Shor1997,
+  author    = {Shor, Peter W.},
+  title     = {Polynomial-Time Algorithms for Prime Factorization and Discrete Logarithms on a Quantum Computer},
+  journal   = {SIAM Journal on Computing},
+  volume    = {26},
+  number    = {5},
+  pages     = {1484--1509},
+  year      = {1997},
+  publisher = {Society for Industrial and Applied Mathematics},
+  url       = {https://www2.math.upenn.edu/~ted/210S14/References/Shor.MAN.pdf},
+  annote ={
+    The Church-Turing thesis says that a digital computer is a
+    universal computational device; that is, it is able to simulate any physically realizable computational device. It has generally been believed that
+    this simulation can be made efficient so that it entails at most a polynomial increase in computation time. This may not be true if quantum
+    mechanics is taken into consideration. A quantum computer is a hypothetical machine based on quantum mechanics. We explain quantum
+    computing, and give an algorithm for prime factorization on a quantum
+    computer that runs asymptotically much faster than the best known algorithm on a digital computer. It is not clear whether it will ever be
+    possible to build large-scale quantum computers. One of the main difficulties is in manipulating coherent quantum states without introducing
+    errors or losing coherence. We discuss quantum error-correcting codes
+    and fault-tolerant quantum computing, which can guarantee highly reliable quantum computation, given only moderately reliable quantum
+    computing hardware.
+  }
 }
 
 
