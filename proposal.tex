@@ -40,12 +40,20 @@ Overall, this work provides a practical, software-focused assessment of classica
 
 \newpage
 \section*{Appendix}
-A concise list of features / user stories in the order in which they will be built. A few examples are below to demonstrate the expected scope and level of granularity; you will have more features than this.
+
 \begin{itemize}
-	\item Default picture display on web application.
-	\item On a button-click, user can separate the image into foreground and background.
-	\item User can select a picture from their desktop.
-	\item Selected picture displays on the web application.
+\item Set up project environment and libraries. (Create Python environment, install Qiskit, NumPy, SciPy, Matplotlib, and folder structure.)
+    \item Generate optimization problem instances. (Create graphs, Max-Cut, or small TSP problems with configurable size and randomness.)
+    \item Implement simulated annealing. (Classical optimization algorithm for comparison with quantum methods, log runtime and solution quality.)
+    \item Implement genetic algorithm. (Classical evolutionary approach with mutation, crossover, and selection, log metrics.)
+    \item Implement greedy/local search algorithm. (Simple heuristic for baseline performance measurement.)
+    \item Implement Grover-based quantum search. (Simulate unstructured search with configurable qubits and output best solution.)
+    \item Implement QAOA quantum algorithm. (Hybrid quantum-classical variational optimization with parameter updates and solution logging.)
+    \item Implement amplitude amplification. (Quantum technique for sampling and probability improvement with small problem instances.)
+    \item Add noise models to quantum simulations. (Include depolarizing, dephasing, and measurement noise; allow toggling noise on/off.)
+    \item Create experiment runner. (Run multiple algorithms on multiple problem instances and collect metrics like solution quality, runtime, and stability.)
+    \item Store experiment results. (Save outputs and metadata in CSV/JSON for reproducibility and analysis.)
+    \item Visualize results. (Plot solution quality, runtime, and convergence for classical vs quantum methods.)
 \end{itemize}
 
 
