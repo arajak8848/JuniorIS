@@ -17,11 +17,17 @@
 \maketitle
 
 Classical computing processes information using bits that take definite values of 0 or 1, whereas quantum computing uses qubits that can exist in superpositions of states and become entangled, enabling fundamentally different computational behavior.~\cite{wong2019} Quantum computing has the potential to improve the performance of certain computational tasks, particularly search and optimization problems. Many quantum algorithms promise theoretical speedups over classical methods; however, these results often rely on ideal assumptions that ignore noise, limited circuit depth, and other practical constraints of current quantum technology. As a result, there is a gap between theoretical expectations and the real-world behavior of quantum algorithms. This work aims to bridge that gap through a software-based comparison of classical and quantum optimization algorithms, focusing on their sensitivity to noise and errors using classical simulation.
+
 The primary goal of this research is to evaluate how quantum optimization algorithms perform under realistic execution conditions when compared to established classical heuristic methods. These problems are computationally challenging for the same underpinning reason that quantum computers can be powerful. While systems in classical physics exist in just one configuration, in quantum mechanics different configurations can coexist at the same time in a superposition of all of the possible states.~\cite{daley2022} Instead of concentrating only on asymptotic complexity or idealized speedups, the study emphasizes practical performance, robustness, and solution quality in noisy environments. Optimization problems are chosen as the focus because they are central to computer science, widely used in practice, and commonly cited as candidates for near-term quantum advantage.
+
 This work compares three classical optimization approaches—simulated annealing, genetic algorithms, and greedy or local search heuristics—with three quantum techniques: Grover-based unstructured search, The Quantum Approximate Optimization Algorithm (QAOA) is a hybrid quantum classical variational algorithm designed to tackle combinatorial optimization problems., ~\cite{zhou2020} and amplitude amplification. These algorithms are selected because they target similar problem classes, have well-understood theoretical foundations, and can be implemented using existing quantum simulation frameworks. To reflect current technological limitations, the experiments are restricted to small problem instances and low-depth quantum circuits.
+
 A key contribution is the design and implementation of a modular software framework for benchmarking classical and quantum algorithms under controlled conditions. The framework supports configurable noise models for quantum circuits, repeated probabilistic simulations, and systematic parameter exploration. Performance is evaluated using metrics such as solution quality, stability across runs, circuit depth, gate counts, qubit requirements, runtime overhead, and sensitivity to increasing noise levels. This standardized approach enables fair, reproducible, and transparent comparisons between classical and quantum methods.
+
 Using this framework, experiments are conducted on representative optimization problems. The results show that although quantum algorithms may offer theoretical advantages, their performance often degrades rapidly when noise and realistic constraints are introduced. In many scenarios, classical heuristic algorithms demonstrate greater robustness and produce higher-quality solutions. The analysis also identifies specific components of quantum algorithms that are particularly sensitive to error, including oracle construction in Grover-based methods and parameter optimization in QAOA.
+
 The work further discusses why theoretical quantum advantages are difficult to realize in practice. Factors such as error accumulation, limited circuit depth, and classical preprocessing overhead are shown to significantly affect performance. Rather than dismissing the potential of quantum optimization, this study highlights the importance of hybrid classical–quantum approaches and realistic evaluation methodologies.
+
 Overall, this work provides a practical, software-focused assessment of classical and quantum optimization algorithms under realistic conditions. By emphasizing error sensitivity and empirical behavior, it contributes to a clearer and more balanced understanding of the capabilities and limitations of near-term quantum computing.
 
 
@@ -29,17 +35,17 @@ Overall, this work provides a practical, software-focused assessment of classica
 
 %~\ref{fig:method}
 
-\begin{figure}[h]
-\begin{center}
-\includegraphics[scale=0.7]{methodology.png}
-\caption{Archie}
-\label{fig:method}       % Give a unique label
-\end{center}
-\end{figure}
-
 
 \newpage
 \section*{Appendix}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.7]{proposal.png}
+\caption{Rough Sketch of the Proposal Idea}
+\label{fig:method}       % Give a unique label
+\end{center}
+\end{figure}
 
 \begin{itemize}
 \item Set up project environment and libraries. (Create Python environment, install Qiskit, NumPy, SciPy, Matplotlib, and folder structure.)
