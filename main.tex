@@ -9,15 +9,33 @@
 \usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
 \usepackage{graphicx}
 
-\title{\textbf{Project Topic}}
-\author{Your Name}
+\title{\textbf{A Software-Based Comparative Study of Error Sensitivity in Classical and Quantum Optimization Algorithms}}
+\author{Aayush Rajak}
 
 \begin{document}
 
 \maketitle
 
 \section{Introduction}
-The introduction will broadly introduce your topic, motivate it, and describe what will be done.
+%The introduction will broadly introduce your topic, motivate it, and describe what will be done.
+Everyone is familiar with the idea of a classical computer, but not everyone is familiar with the idea of a quantum computer. 
+The Classical computing processes information using bits that take definite values of 0 or 1, whereas quantum computing 
+uses qubits that can exist in superpositions of states and become entangled, enabling fundamentally different computational behavior
+~\cite{wong2019}. Quantum computing has the potential to improve the performance of certain computational tasks, particularly search 
+and optimization problems. Many quantum algorithms promise theoretical speedups over classical methods; however, these results often rely on 
+ideal assumptions that ignore noise, limited circuit depth, and other practical constraints of current quantum technology. As a result, 
+there is a gap between theoretical expectations and the real-world behavior of quantum algorithms. This work aims to bridge that gap through 
+a software-based comparison of classical and quantum optimization algorithms, focusing on their sensitivity to noise and errors using 
+classical simulation.
+
+
+This research evaluates quantum optimization algorithms under realistic execution conditions and compares them with classical heuristics. 
+Rather than focusing on theoretical speedups, it examines practical performance, robustness, and solution quality in noisy environments. 
+Classical methods—genetic algorithms and greedy search—are compared with quantum approaches including Grover-based 
+search and QAOA. A modular benchmarking framework with configurable noise models enables fair, reproducible 
+evaluation using metrics such as solution quality, stability, circuit depth, and noise sensitivity. Results show quantum performance often 
+degrades under realistic constraints, while classical heuristics remain more robust, highlighting the importance of hybrid strategies and 
+practical evaluation methods.
 
 \section{Related Works}
 
