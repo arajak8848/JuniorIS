@@ -47,6 +47,34 @@ Algorithm with Grover’s Algorithm using MAX-SAT formulated as a search problem
 The fourth compares Greedy search with Grover’s Algorithm on Number Partitioning, illustrating structured versus unstructured search. 
 Finally, a combined Genetic+Greedy versus QAOA+Grover evaluation on Random QUBO provides a unified benchmark across all algorithms.
 
+The core hypothesis of this work is that while quantum algorithms offer theoretical advantages, their practical performance in near-term 
+optimization tasks is inversely proportional to the level of environmental noise and circuit complexity. Specifically, it is hypothesized 
+that classical heuristics—such as Genetic Algorithms and Greedy Search—will demonstrate superior robustness and solution quality compared to 
+their quantum counterparts (QAOA and Grover’s Algorithm) when executed under realistic, noisy simulation parameters.
+
+Furthermore, the research posits that a "cross-over point" exists where the theoretical speedup of quantum approaches is negated by the error 
+rates inherent in current hardware constraints. By benchmarking across five distinct problem types (e.g., Max-Cut and Knapsack), we hypothesize 
+that hybrid strategies—which combine the stability of classical logic with the state-space exploration of quantum mechanics—will emerge as the 
+most viable path for bridging the current gap between quantum theory and real-world utility.
+
+\section{Background}
+To understand the comparative performance of classical and quantum optimization, one must first grasp the mechanics of Quantum Processing Units 
+(QPUs) versus Central Processing Units (CPUs). While classical CPUs execute instructions linearly using bits (binary 0 or 1), quantum systems leverage 
+qubits. Unlike bits, qubits utilize superposition, allowing them to represent a complex linear combination of both states simultaneously.
+
+Two critical phenomena drive the theoretical power of the algorithms discussed in this work: entanglement and interference. Entanglement allows 
+qubits to be perfectly correlated regardless of distance, while interference is used to amplify the probability of the "correct" solution while 
+canceling out incorrect ones. However, current technology resides in the Noisy Intermediate-Scale Quantum (NISQ) era. In this stage, qubits are 
+highly susceptible to decoherence—the loss of quantum information due to environmental interaction—and gate errors, which limit the circuit depth 
+(the number of sequential operations) a computer can reliably perform.
+
+This research specifically evaluates two primary quantum paradigms: Grover’s Algorithm and the Quantum Approximate Optimization Algorithm (QAOA). 
+Grover’s provides a quadratic speedup for unstructured search by iteratively rotating the quantum state toward the target solution. Conversely, 
+QAOA is a variational algorithm, a hybrid approach where a classical optimizer tunes quantum parameters to find the ground state of a Hamiltonian, 
+typically representing a problem like Max-Cut or QUBO (Quadratic Unconstrained Binary Optimization). Understanding the trade-off between the 
+theoretical "speedup" of these algorithms and the practical "noise floor" of NISQ hardware is essential for interpreting the benchmarking results 
+provided in this paper.
+
 \section{Related Works}
 Even though quantum computing is relatively new, there has been a lot of work done in the field. The most relevant work to this project I found
 was the paper by Airton Arruda, et al. titled "A Software-Based Comparative Study of Error Sensitivity in Classical and Quantum Optimization Algorithms"~\cite{aitor}.
@@ -56,6 +84,36 @@ and memory usage. Results show trade-offs in scalability, efficiency, and approx
 "Introduction to Classical and Quantum Computing" by Thomas G. Wong~\cite{wong2019} and "Quantum Approximate Optimization Algorithm" by Leo Zhou, et al.~\cite{zhou2020} 
 provide foundational insights into the principles and fundamentals to understand the algorithms used in this project. 
 
+To understand the divergence between classical and quantum optimization, one must first establish the mechanical differences in how information 
+is manipulated. Thomas G. Wong’s Introduction to Classical and Quantum Computing serves as a critical pedagogical anchor for this research. 
+Wong’s work demystifies the transition from the deterministic logic of classical gates to the probabilistic nature of quantum operators. 
+Specifically, his exposition on the Bloch Sphere and the mathematical representation of superposition provides the necessary context for why 
+quantum algorithms can explore a search space more fluidly than their classical counterparts. By grounding the project in these fundamentals, 
+we can better articulate why noise is not merely a "glitch" but a fundamental disruption of the delicate phase relationships that quantum speedups 
+rely upon.Building upon these foundations, the work of Leo Zhou et al. in Quantum Approximate Optimization Algorithm (QAOA) introduces the specific 
+mechanics of modern hybrid algorithms. QAOA is designed for the NISQ era, utilizing a variational approach where a classical optimizer tunes quantum 
+parameters to minimize a cost function. Zhou’s analysis is vital because it highlights the theoretical potential of quantum circuits to find high-quality 
+approximations for NP-hard problems, such as Max-Cut. However, Zhou also notes that the performance of QAOA is heavily dependent on the "depth" ($p$) of 
+the circuit. This theoretical insight directly informs our investigation into the "coherence budget"—the point at which adding more quantum steps to 
+improve a solution actually becomes counterproductive due to the accumulation of environmental noise.
+
+While Wong and Zhou provide the theory, the work of Airton Arruda et al., A Software-Based Comparative Study of Error Sensitivity in Classical and 
+Quantum Optimization Algorithms, offers a pragmatic blueprint for comparative methodology. Arruda’s study is particularly relevant because it moves 
+beyond theoretical proofs to examine how algorithms behave when the "ideal" conditions of a blackboard are replaced by the limitations of a software-simulated environment.
+
+Arruda et al. focus on the Weighted Max-Cut problem, comparing a Genetic Algorithm (GA), Graph Neural Networks (GNNs), and Density Matrix Renormalization Group (DMRG) 
+approaches. Their findings regarding scalability are particularly instructive: while classical heuristics like GAs are robust and easy to scale to 250 nodes, they often 
+settle into local optima. Conversely, tensor network approaches (DMRG) offer high precision but face significant memory bottlenecks as system complexity grows.
+
+The most significant contribution of Arruda’s work to this project is the analysis of error sensitivity. By evaluating how solution quality degrades as noise models are 
+introduced, Arruda identifies a "threshold of utility" for quantum-inspired methods. This research adopts and expands upon that logic, but pivots the focus toward Grover-based 
+search and QAOA to see if these specific quantum structures exhibit the same sensitivity profiles as the tensor networks studied by Arruda. By comparing these against the "baseline" 
+of a Genetic Algorithm—which effectively "ignores" quantum noise but struggles with search space dimensionality—we can pinpoint exactly where quantum methods lose their competitive edge.
+
+Collectively, these works suggest that the future of optimization lies not in a total replacement of classical methods, but in a sophisticated understanding of their trade-offs. 
+Wong provides the language, Zhou provides the tools, and Arruda provides the experimental rigour. This project builds on this lineage by creating a modular benchmarking framework 
+that treats noise as a primary variable rather than an afterthought, ensuring that the comparison between a Greedy Search and a Quantum Algorithm is both fair and reflective of modern 
+hardware realities.
 \section{Methodology}
 Dijkstra's algorithm was chosen for single-source shortest path computation on graphs with non-negative edge weights, following the implementation presented in CLRS~\cite{clrsAlgorithms}.
 
