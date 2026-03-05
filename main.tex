@@ -37,7 +37,24 @@ evaluation using metrics such as solution quality, stability, circuit depth, and
 degrades under realistic constraints, while classical heuristics remain more robust, highlighting the importance of hybrid strategies and 
 practical evaluation methods.
 
+
+This paper is organized into five benchmark comparisons used to evaluate classical and quantum optimization algorithms across representative 
+problem types. Each row pairs a classical algorithm with a quantum counterpart and identifies the problem instance used to compare them. The 
+first and primary comparison evaluates a Genetic Algorithm against QAOA on the Max-Cut problem, a standard benchmark for quantum optimization 
+that allows a fair global search comparison. The second compares a Greedy Algorithm with QAOA on the Knapsack problem, highlighting the 
+difference between a simple heuristic and a variational quantum method for constrained optimization. The third experiment contrasts a Genetic 
+Algorithm with Grover’s Algorithm using MAX-SAT formulated as a search problem, emphasizing heuristic versus quadratic-speedup search. 
+The fourth compares Greedy search with Grover’s Algorithm on Number Partitioning, illustrating structured versus unstructured search. 
+Finally, a combined Genetic+Greedy versus QAOA+Grover evaluation on Random QUBO provides a unified benchmark across all algorithms.
+
 \section{Related Works}
+Even though quantum computing is relatively new, there has been a lot of work done in the field. The most relevant work to this project I found
+was the paper by Airton Arruda, et al. titled "A Software-Based Comparative Study of Error Sensitivity in Classical and Quantum Optimization Algorithms"~\cite{aitor}.
+This study compares three paradigms for solving the Weighted Max-Cut problem: a Genetic Algorithm, a Graph Neural Network, and a tensor 
+network approach using Density Matrix Renormalization Group. Evaluating graphs from 10 to 250 nodes, it analyzes solution quality, runtime, 
+and memory usage. Results show trade-offs in scalability, efficiency, and approximation performance. Additionally, papers such as 
+"Introduction to Classical and Quantum Computing" by Thomas G. Wong~\cite{wong2019} and "Quantum Approximate Optimization Algorithm" by Leo Zhou, et al.~\cite{zhou2020} 
+provide foundational insights into the principles and fundamentals to understand the algorithms used in this project. 
 
 \section{Methodology}
 Dijkstra's algorithm was chosen for single-source shortest path computation on graphs with non-negative edge weights, following the implementation presented in CLRS~\cite{clrsAlgorithms}.
