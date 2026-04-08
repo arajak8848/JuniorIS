@@ -282,6 +282,44 @@ def build_diffuser(qc: QuantumCircuit, var_q: list[int]) -> None:
 
 
 # =============================================================================
+# Inlined greedy warm-start (no dependency on qubo_greedy.py)
+# =============================================================================
+
+def _greedy_warmstart(seed: int = 42) -> tuple[list[int], float]:
+    """
+    Simple best-flip greedy: at each step flip the bit that reduces f(x) most.
+    Used to initialise the Grover threshold without importing qubo_greedy.py.
+    """
+    import random
+    rng = random.Random(seed)
+    x   = [rng.randint(0, 1) for _ in range(N)]
+
+    while True:
+        gains = []
+        for i in range(N):
+            x[i] ^= 1
+            gains.append(evaluate(x) - evaluate([x[j] ^ (1 if j == i else 0)
+                                                  for j in range(N)]))
+            x[i] ^= 1  # revert
+
+        # recompute gains cleanly
+        cur = evaluate(x)
+        best_gain, best_i = 0.0, -1
+        for i in range(N):
+            x[i] ^= 1
+            gain = evaluate(x) - cur
+            x[i] ^= 1
+            if gain < best_gain:
+                best_gain, best_i = gain, i
+
+        if best_i == -1:
+            break
+        x[best_i] ^= 1
+
+    return x, evaluate(x)
+
+
+# =============================================================================
 # Config + Solver
 # =============================================================================
 
@@ -312,9 +350,8 @@ class GroverQUBO:
         self.val_q    = list(range(N, N + S_BITS))
         self.anc      = N + S_BITS
 
-        # Greedy warm-start
-        from qubo_greedy import greedy_best_flip
-        init_x, init_val = greedy_best_flip(seed=42)
+        # Greedy warm-start (inlined — no dependency on qubo_greedy.py)
+        init_x, init_val = _greedy_warmstart()
         self.best_x   = init_x
         self.best_val = init_val
         self.search_log: list[dict] = []

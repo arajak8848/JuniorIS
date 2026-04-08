@@ -53,7 +53,7 @@ Two critical phenomena drive the theoretical power of the algorithms discussed i
 \subsection{Algorithmic Definitions}
 This research specifically evaluates two primary quantum paradigms: Grover’s Algorithm and the Quantum Approximate Optimization Algorithm (QAOA). 
 \begin{enumerate}
-    \item \textbf{Grover’s Algorithm:} Grover’s algorithm is widely recognized as a seminal milestonein the development of quantum computing, offering a profounddemonstration of how quantum mechanics can be leveraged toachieve computational advantages unattainable by classical means.Introduced by Lov Grover [ 10 ], the algorithm addresses the funda-mental problem of unstructured search, reducing its time complex-ity from linear to square root of the input size—a quadratic speedupthat marks a significant leap in efficiency. \cite{faro}
+    \item \textbf{Grover’s Algorithm:} Grover’s algorithm is widely recognized as a seminal milestonein the development of quantum computing, offering a profounddemonstration of how quantum mechanics can be leveraged toachieve computational advantages unattainable by classical means.Introduced by Lov Grover, the algorithm addresses the funda-mental problem of unstructured search, reducing its time complex-ity from linear to square root of the input size—a quadratic speedupthat marks a significant leap in efficiency. \cite{faro}
     \item \textbf{QAOA:} A variational algorithm where a classical optimizer tunes quantum parameters $(\gamma, \beta)$ to find the ground state of a Hamiltonian. This is a hybrid approach where the "heavy lifting" of the state exploration is done on the QPU, while the parameter refinement is handled by a classical CPU.
 \end{enumerate}
 
@@ -259,6 +259,14 @@ The results show a clear trade-off between precision timing and "good enough" sh
     \caption{QUBO benchmark results comparing QAOA and Grover’s Algorithm performance}
     \label{fig:together}
 \end{figure}
+
+The results from these four algorithms—Greedy Search, Genetic Algorithm, QAOA, and Grover Adaptive Search—provide a clear comparison of how different strategies reach the same optimal solution. Across every test, the algorithms successfully found the global minimum value of $f(x) = -14.0$. However, the time and logic used to get there vary significantly between classical and quantum approaches.
+
+The classical methods, **Greedy Search** and the **Genetic Algorithm**, are exceptionally fast for this problem size. The Greedy Search is the most efficient, achieving the optimal result in just $0.534$ ms with a single restart. This suggests that the problem landscape is relatively simple for local search methods. The Genetic Algorithm also performs well, though it is more sensitive to settings. The "hyperparameter sweep" shows that a population of $50$ and $200$ generations is enough to find the answer in $98.9$ ms. Increasing the complexity to $300$ individuals and $800$ generations increases the time to $2481.7$ ms without improving the result, showing that more computation isn't always necessary for simple tasks.
+
+The quantum-inspired methods, **QAOA** and **Grover Adaptive Search**, show how probabilistic search works. Grover Adaptive Search gradually builds confidence, reaching a $96.3\%$ success rate after $5$ iterations. It takes about $0.639$ seconds, which is slower than the Greedy method but demonstrates how quantum "amplification" works. The QAOA results show that as the circuit depth ($p$) increases from $1$ to $4$, the average energy ($\langle H_C \rangle$) improves from $-0.7766$ to $-3.0566$. While QAOA takes the longest (up to $11.416$ seconds), it provides a more thorough exploration of the data. 
+
+In conclusion, while the Greedy method is best for pure speed on this dataset, the Genetic and Quantum algorithms offer more robust ways to handle complex problems where a simple shortcut might fail.
 
 \section{Conclusion}
 This study has provided a rigorous, software-based comparison of classical and quantum optimization algorithms. Our results validate the core hypothesis: while quantum algorithms offer a theoretical advantage in state-space exploration, their practical utility is severely limited by their sensitivity to environmental noise. 
