@@ -10,6 +10,7 @@
 \usepackage{cite}
 \usepackage{booktabs}
 \usepackage{caption}
+\usepackage{subcaption}
 
 % Double spacing to meet word count visibility and thesis standards
 \doublespacing
@@ -52,7 +53,7 @@ Two critical phenomena drive the theoretical power of the algorithms discussed i
 \subsection{Algorithmic Definitions}
 This research specifically evaluates two primary quantum paradigms: Grover’s Algorithm and the Quantum Approximate Optimization Algorithm (QAOA). 
 \begin{enumerate}
-    \item \textbf{Grover’s Algorithm:} Provides a quadratic speedup for unstructured search. It works by iteratively applying a "Grover Diffusion Operator" that rotates the quantum state vector toward the target state.
+    \item \textbf{Grover’s Algorithm:} Grover’s algorithm is widely recognized as a seminal milestonein the development of quantum computing, offering a profounddemonstration of how quantum mechanics can be leveraged toachieve computational advantages unattainable by classical means.Introduced by Lov Grover [ 10 ], the algorithm addresses the funda-mental problem of unstructured search, reducing its time complex-ity from linear to square root of the input size—a quadratic speedupthat marks a significant leap in efficiency. \cite{faro}
     \item \textbf{QAOA:} A variational algorithm where a classical optimizer tunes quantum parameters $(\gamma, \beta)$ to find the ground state of a Hamiltonian. This is a hybrid approach where the "heavy lifting" of the state exploration is done on the QPU, while the parameter refinement is handled by a classical CPU.
 \end{enumerate}
 
@@ -77,26 +78,26 @@ Furthermore, the work of Simone Faro and Francesco Pio Marino \cite{faro} regard
 The constraints of quantum optimization are further contextualized by Juan Ungredda and Juergen Branke \cite{Juan}, who discuss Bayesian Optimization for constrained problems. Their work highlights the difficulty classical solvers have with "black-box" constraints, which provides a point of comparison for how QAOA handles constraints through penalty terms in the Hamiltonian. Finally, Amr Magdy’s \cite{magdy} recent work on quantum annealing for spatial problems demonstrates that specialized quantum hardware (like D-Wave) is already finding production-ready niches. This underscores the importance of our study: if we are to use gate-based systems for optimization, we must understand their error sensitivity relative to these existing annealing and classical technologies.
 
 \section{Methodology}
-The methodology of this study is designed to ensure a "fair fight" between classical and quantum algorithms. We have developed a modular benchmarking framework in Python using the Qiskit and Scipy libraries.
+The goal of this study is to create a "fair fight" between classical and quantum algorithms. To do this, we built a modular testing framework in Python using the Qiskit and Scipy libraries.
 
 \subsection{Problem Encoding: The QUBO Framework}
-All optimization problems in this study are mapped to a Quadratic Unconstrained Binary Optimization (QUBO) format. A QUBO problem is defined as:
-$$ \min_{x \in \{0,1\}^n} \sum_{i \le j} x_i Q_{ij} x_j $$
-This format is essential because it serves as the "universal language" for both classical heuristics and quantum Ising models. For the quantum algorithms, the binary variables $x_i$ are mapped to Pauli-Z operators $Z_i$ using the transformation $x_i \to \frac{1-Z_i}{2}$.
+To ensure both types of computers are solving the exact same problem, we translate all tasks into a Quadratic Unconstrained Binary Optimization (QUBO) format. 
+
+Think of QUBO as a "universal translator." It turns complex problems into a mathematical map where the goal is to find the lowest point, representing the best solution. For classical computers, we treat these as simple "on/off" (0 or 1) switches. For quantum computers, we map these switches to quantum bits (qubits) so the hardware can process the logic.
 
 \subsection{Noise Modeling and Simulation}
-We utilize the `Qiskit Aer` simulator to implement realistic noise models. Two primary error sources are simulated:
-\begin{enumerate}
-    \item \textbf{Depolarizing Error:} This simulates a discrete gate error where a qubit state is replaced by a mixed state with probability $p_{gate}$.
-    \item \textbf{Thermal Relaxation:} We model the $T_1$ (relaxation) and $T_2$ (dephasing) times based on current hardware specifications (e.g., IBM Eagle processors). The probability of a dephasing error grows exponentially with the circuit depth.
-\end{enumerate}
+Quantum computers are sensitive to their environment, which causes "noise" or errors. We use the \texttt{Qiskit Aer} simulator to mimic these real-world conditions through two main types of interference:
+\begin{itemize}
+    \item \textbf{Depolarizing Error:} This simulates a random glitch during a calculation where a qubit's information is scrambled.
+    \item \textbf{Thermal Relaxation:} This models how qubits naturally lose their energy or "focus" over time. As a quantum program gets longer and more complex, the chance of these errors occurring increases significantly.
+\end{itemize}
 
 \subsection{Benchmark Implementation}
-For each of the five benchmarks, we define specific parameters:
+We tested the algorithms using three specific types of challenges:
 \begin{itemize}
-    \item \textbf{Max-Cut:} Graphs of varying density (ER-graphs) from 10 to 20 nodes.
-    \item \textbf{Knapsack:} A constrained optimization problem where the quantum Hamiltonian includes a penalty term $\lambda( \sum w_i x_i - C )^2$.
-    \item \textbf{MAX-SAT:} A 3-SAT formulation where we count the number of satisfied clauses.
+    \item \textbf{Max-Cut:} Finding the best way to divide a network of connected points into two distinct groups.
+    \item \textbf{Knapsack:} A puzzle where the goal is to fit the most valuable items into a limited space. For the quantum version, we add a "penalty" to the calculation to ensure the computer does not exceed the weight limit.
+    \item \textbf{MAX-SAT:} A logic-based problem where the goal is to satisfy as many conditions or rules as possible at the same time.
 \end{itemize}
 
 \section{Results and Analysis Plan}
@@ -111,6 +112,153 @@ In the MAX-SAT benchmark, Grover’s Algorithm shows the expected $\sqrt{N}$ spe
 \section{Core Sections (Drafting Narrative)}
 [This section serves as a placeholder for the final data tables and figures.]
 Our implementation of the Number Partitioning problem reveals that for small $n$ (under 12 qubits), the quantum algorithm is highly competitive. However, as the problem size scales, the "circuit width" (number of qubits) and "circuit depth" interact negatively with the decoherence time. We have generated a series of heatmaps showing the "Region of Quantum Utility," which is currently restricted to shallow circuits and high-coherence qubits.
+
+\subsection{Max-Cut results}
+\begin{figure}[ht]
+    \centering
+    % First Subfigure
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{imgs/geneMax.JPG}
+        \caption{Genetic Algorithm performance on Max-Cut benchmark}
+        \label{fig:left}
+    \end{subfigure}
+    \hfill % This adds horizontal space between the images
+    % Second Subfigure
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{imgs/qaoaMax.JPG}
+        \caption{QAOA performance on Max-Cut benchmark}
+        \label{fig:right}
+    \end{subfigure}
+    
+    \caption{Max-Cut benchmark results comparing Genetic Algorithm and QAOA performance}
+    \label{fig:together}
+\end{figure}
+
+The genetic algorithm was very fast and instantaneously found a solution with an approximation time of 6.438 seconds. The QAOA algorithm, on the other hand, took significantly longer to run and only achieved an approximation time of 12.64 seconds under ideal conditions. But, the QAOA algorithm had to brute force the results and still was super slow, which is a clear indication of the limitations of quantum algorithms in the NISQ era. The genetic algorithm, being a classical heuristic, was able to find a good solution much faster and was more robust to noise, while the QAOA algorithm struggled to maintain its performance as noise levels increased.
+
+\subsection{Max-SAT results}
+\begin{figure}[ht]
+    \centering
+    % First Subfigure
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{imgs/geneMaxSat.JPG}
+        \caption{Genetic Algorithm performance on Max-SAT benchmark}
+        \label{fig:left}
+    \end{subfigure}
+    \hfill % This adds horizontal space between the images
+    % Second Subfigure
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{imgs/grovMaxSat.JPG}
+        \caption{Grover’s Algorithm performance on Max-SAT benchmark}
+        \label{fig:right}
+    \end{subfigure}
+    
+    \caption{Max-SAT benchmark results comparing Genetic Algorithm and Grover’s Algorithm performance}
+    \label{fig:together}
+\end{figure}
+
+The results show strong performance from both approaches, but with different strengths. The genetic algorithm (GA) demonstrates consistent improvement as clause length $k$ increases. For $k=2$, it satisfies about 93.33\% of clauses, while for $k \ge 4$, it reaches 100\%, indicating that the GA handles more flexible clause structures very effectively. Its performance stability across repeated runs suggests robustness, and matching WalkSAT in all cases (+0 difference) shows it is competitive with established local search methods.
+
+The Grover-based approach, however, guarantees optimal satisfaction (10/10 clauses) in the best assignment, confirming its theoretical strength. But its success probability varies significantly with iteration count. Peak performance occurs around 2--3 iterations (over 90\% success), after which performance drops sharply due to overshooting, a known issue in quantum amplitude amplification.
+
+Overall, the GA is more stable and scalable in practice, while Grover’s method is powerful but highly sensitive to parameter tuning.
+\subsection{Knapsack results}
+\begin{figure}[ht]
+    \centering
+    % First Subfigure
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{imgs/greeKnap.JPG}
+        \caption{Greedy Algorithm performance on Knapsack benchmark}
+        \label{fig:left}
+    \end{subfigure}
+    \hfill % This adds horizontal space between the images
+    % Second Subfigure
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{imgs/qaoaKnap.JPG}
+        \caption{QAOA performance on Knapsack benchmark}
+        \label{fig:right}
+    \end{subfigure}
+    
+    \caption{Knapsack benchmark results comparing Greedy Algorithm and QAOA performance}
+    \label{fig:together}
+\end{figure}
+The two solutions illustrate contrasting approaches to the Knapsack problem: a quantum-inspired method (QAOA) and classical greedy/optimal algorithms. The QAOA results show consistent feasibility across depths $p = 1$ to $p = 4$, all achieving the exact optimum value of $160.00$ with a perfect ratio of $1.0$. This indicates strong convergence even at low circuit depths, suggesting the problem instance is relatively simple for QAOA and does not require deeper optimization layers.
+
+In contrast, the greedy heuristics prioritize speed over optimality. The best greedy (ratio-based) solution achieves a value of $349.45$ with $91\%$ capacity usage but falls short of the exact dynamic programming ($361.47$) and brute force ($364.00$) results. The greedy fractional method performs best ($373.71$) but violates the $0/1$ constraint. Overall, QAOA demonstrates exactness, while classical methods highlight efficiency--optimality trade-offs.
+
+\subsection{Number Partitioning results}
+\begin{figure}[ht]
+    \centering
+    % First Subfigure
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{imgs/greeNum.JPG}
+        \caption{Greedy Algorithm performance on Number Partitioning benchmark}
+        \label{fig:left}
+    \end{subfigure}
+    \hfill % This adds horizontal space between the images
+    % Second Subfigure
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{imgs/grovNum.JPG}
+        \caption{Grover’s Algorithm performance on Number Partitioning benchmark}
+        \label{fig:right}
+    \end{subfigure}
+    
+    \caption{Number Partitioning benchmark results comparing Greedy Algorithm and Grover’s Algorithm performance}
+    \label{fig:together}
+\end{figure}
+Gemini said
+The results show a clear trade-off between precision timing and "good enough" shortcuts. In the quantum search (Grover’s), success is all about the "sweet spot": hitting 99.8% accuracy at exactly four iterations before the probability begins to swing back down, meaning more work actually leads to worse results. Meanwhile, the classical heuristics comparison shows that while perfect solutions (DP) stay spot-on, quicker shortcut methods like LPT or KK start to slip as the number of items grows. They offer a fast way to get close to an answer, but they can’t maintain the perfect balance that the slower, more rigorous method provides. Ultimately, the quantum approach requires perfect calibration to succeed, while the classical heuristics prioritize speed over perfect results as the dataset becomes more complex.
+\subsection{QUBO results}
+\begin{figure}[ht]
+    \centering
+    % First Subfigure
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{imgs/geneQUBO.JPG}
+        \caption{Genetic Algorithm performance on QUBO benchmark}
+        \label{fig:left}
+    \end{subfigure}
+    \hfill % This adds horizontal space between the images
+    % Second Subfigure
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{imgs/greeQubo.JPG}
+        \caption{Greedy Algorithm performance on QUBO benchmark}
+        \label{fig:right}
+    \end{subfigure}
+    
+    \caption{QUBO benchmark results comparing Genetic Algorithm and Greedy Algorithm performance}
+    \label{fig:together}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    % First Subfigure
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{imgs/qaoaQubo.JPG}
+        \caption{QAOA performance on QUBO benchmark}
+        \label{fig:left}
+    \end{subfigure}
+    \hfill % This adds horizontal space between the images
+    % Second Subfigure
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{imgs/grovQubo.JPG}
+        \caption{Grover’s Algorithm performance on QUBO benchmark}
+        \label{fig:right}
+    \end{subfigure}
+    
+    \caption{QUBO benchmark results comparing QAOA and Grover’s Algorithm performance}
+    \label{fig:together}
+\end{figure}
 
 \section{Conclusion}
 This study has provided a rigorous, software-based comparison of classical and quantum optimization algorithms. Our results validate the core hypothesis: while quantum algorithms offer a theoretical advantage in state-space exploration, their practical utility is severely limited by their sensitivity to environmental noise. 
