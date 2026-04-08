@@ -12,7 +12,6 @@
 \usepackage{caption}
 \usepackage{subcaption}
 
-% Double spacing to meet word count visibility and thesis standards
 \doublespacing
 
 \title{\textbf{A Software-Based Comparative Study of Error Sensitivity in Classical and Quantum Optimization Algorithms}}
@@ -54,7 +53,7 @@ Two critical phenomena drive the theoretical power of the algorithms discussed i
 This research specifically evaluates two primary quantum paradigms: Grover’s Algorithm and the Quantum Approximate Optimization Algorithm (QAOA). 
 \begin{enumerate}
     \item \textbf{Grover’s Algorithm:} Grover’s algorithm is widely recognized as a seminal milestonein the development of quantum computing, offering a profounddemonstration of how quantum mechanics can be leveraged toachieve computational advantages unattainable by classical means.Introduced by Lov Grover, the algorithm addresses the funda-mental problem of unstructured search, reducing its time complex-ity from linear to square root of the input size—a quadratic speedupthat marks a significant leap in efficiency. \cite{faro}
-    \item \textbf{QAOA:} A variational algorithm where a classical optimizer tunes quantum parameters $(\gamma, \beta)$ to find the ground state of a Hamiltonian. This is a hybrid approach where the "heavy lifting" of the state exploration is done on the QPU, while the parameter refinement is handled by a classical CPU.
+    \item \textbf{QAOA:} Quantum Approximate Optimization Algorithm (QAOA) is a promising hybrid quantum-classical method for solving combinatorial problems, but poses major simulation challenges on classical hardware. \cite{chiu}
 \end{enumerate}
 
 \subsection{Classical Baselines}
@@ -101,18 +100,11 @@ We tested the algorithms using three specific types of challenges:
 \end{itemize}
 
 \section{Results and Analysis Plan}
-The results of this study are analyzed through the lens of "Solution Quality vs. Noise Level." 
+The objective of this study is to evaluate whether the theoretical advantages of quantum optimization algorithms persist under realistic, noise-affected conditions, and to determine how their performance compares to well-established classical heuristics. Rather than assuming ideal quantum hardware, this work explicitly incorporates noise models and circuit limitations to simulate practical execution environments. By doing so, the analysis focuses on applied performance—measured through solution quality, stability, and sensitivity to error—rather than asymptotic theoretical speedups.
 
-\subsection{Preliminary Findings on QAOA (Max-Cut)}
-Initial data indicates that under "ideal" (zero-noise) conditions, QAOA with a depth of $p=3$ achieves an approximation ratio of 0.94, outperforming the Greedy Search (0.82) and rivaling the Genetic Algorithm (0.91). However, as we introduce a gate error rate of $10^{-3}$, the QAOA performance drops precipitously to 0.65. Interestingly, the Genetic Algorithm remains robust, maintaining an approximation ratio above 0.88 even when "simulated noise" (random bit flips) is introduced to its chromosome strings.
+Across five benchmark problems—Max-Cut, Knapsack, MAX-SAT, Number Partitioning, and Random QUBO—this study systematically compares Genetic Algorithms and Greedy Search with Quantum Approximate Optimization Algorithm (QAOA) and Grover-based search methods. Each pairing is designed to highlight a specific contrast, such as global versus local search strategies or structured versus unstructured exploration. The benchmarks collectively provide a diverse representation of optimization challenges, ensuring that conclusions are not limited to a single problem domain.
 
-\subsection{Analysis of Grover’s Algorithm}
-In the MAX-SAT benchmark, Grover’s Algorithm shows the expected $\sqrt{N}$ speedup in oracle queries. However, the physical "time-to-solution" is hampered by the overhead of state preparation and the complexity of the SAT oracle circuit. In our simulated noisy environment, the accumulation of phase errors in the multi-controlled Toffoli gates results in "amplitude leakage," where the probability of measuring the correct solution decreases as more Grover iterations are added. This confirms the "cross-over point" where more quantum processing actually leads to worse results.
-
-\section{Core Sections (Drafting Narrative)}
-[This section serves as a placeholder for the final data tables and figures.]
-Our implementation of the Number Partitioning problem reveals that for small $n$ (under 12 qubits), the quantum algorithm is highly competitive. However, as the problem size scales, the "circuit width" (number of qubits) and "circuit depth" interact negatively with the decoherence time. We have generated a series of heatmaps showing the "Region of Quantum Utility," which is currently restricted to shallow circuits and high-coherence qubits.
-
+The results presented in this section aim to identify performance trends as noise levels and circuit complexity increase. In particular, the analysis seeks to determine whether a “cross-over point” exists at which quantum algorithms lose their advantage due to accumulated gate errors and decoherence effects. Metrics such as approximation ratio, variance in outcomes, and degradation under noise are used to quantify these effects.
 \subsection{Max-Cut results}
 \begin{figure}[ht]
     \centering
